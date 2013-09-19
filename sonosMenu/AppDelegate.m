@@ -65,6 +65,15 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
 
     NSString *contents = [NSString stringWithFormat:@"HouseholdID: [%@]", tItem.houseHoldID];
     [contents writeToFile:docPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    
+    // Quit and Relaunch Sonos App
+    
+    [NSApp activateIgnoringOtherApps:YES];
+    NSAppleScript *sonos = [[NSAppleScript alloc] initWithSource:@"tell application \"Sonos\" to quit \r delay 5 \r tell application \"Sonos\" to activate"];
+    
+    [sonos executeAndReturnError:nil];
+
 
 }
 
@@ -79,7 +88,7 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
 
     // Add items
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"Playground" andHouseHoldID:@"Sonos_Oo0VFqMAPbF3umyHMLjremCNbe"]];
-    [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"JFPI™" andHouseHoldID:@"Sonos_nCLMAzUVvYT0fNQXCrQSdyYQEs"]];
+    [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"JFDI™" andHouseHoldID:@"Sonos_nCLMAzUVvYT0fNQXCrQSdyYQEs"]];
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"The Penthouse" andHouseHoldID:@"Sonos_5WvYLO189Sai40ssNe5th4uxON"]];
     
     for (NSMenuItem *item in theMenu.itemArray) {
@@ -100,13 +109,6 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     statusItem.highlightMode = YES;
     statusItem.menu = theMenu;
 
-
-// Quit and Relaunch Sonos App but I need you to make it so it's onClick
-    
-    [NSApp activateIgnoringOtherApps:YES];
-    NSAppleScript *sonos = [[NSAppleScript alloc] initWithSource:@"tell application \"Sonos\" to quit \r delay 5 \r tell application \"Sonos\" to activate"];
-    
-    [sonos executeAndReturnError:nil];
     
     
 

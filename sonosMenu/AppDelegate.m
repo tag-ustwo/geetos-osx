@@ -74,9 +74,9 @@ NSMenu *theMenu;
     //[statusItem setMenu:theMenu];
     
     statusItem = [[NSStatusBar systemStatusBar]statusItemWithLength:NSSquareStatusItemLength];
-    NSImage *statusImage = [NSImage imageNamed:@"sonos.png"];
+    NSImage *statusImage = [NSImage imageNamed:@"status_item_icon"];
     [statusItem setImage:statusImage];
-    NSImage *altStatusImage = [NSImage imageNamed:@"StatusHighlighted"];
+    NSImage *altStatusImage = [NSImage imageNamed:@"status_item_highlighted_icon"];
     [statusItem setAlternateImage:altStatusImage];
     [statusItem setHighlightMode:YES];
     [statusItem setMenu:theMenu];

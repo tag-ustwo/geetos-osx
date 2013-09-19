@@ -70,7 +70,7 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     // Quit and Relaunch Sonos App
     
     [NSApp activateIgnoringOtherApps:YES];
-    NSAppleScript *sonos = [[NSAppleScript alloc] initWithSource:@"tell application \"Sonos\" to quit \r delay 5 \r tell application \"Sonos\" to activate"];
+    NSAppleScript *sonos = [[NSAppleScript alloc] initWithSource:@"tell application \"Sonos\" to quit \r delay 3 \r tell application \"Sonos\" to activate"];
     
     [sonos executeAndReturnError:nil];
 

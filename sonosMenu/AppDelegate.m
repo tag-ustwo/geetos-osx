@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  sonosMenu
 //
-//  Created by Geet on 18/09/2013.
+//  Started by Geet.... Finished by AJAX!!! on 18/09/2013.
 //  Copyright (c) 2013 ustwo. All rights reserved.
 //
 

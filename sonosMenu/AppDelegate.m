@@ -15,11 +15,12 @@ NSStatusItem *statusItem;
 NSMenu *theMenu;
 
 
+
 - (void)dealloc
 {
     
 }
-- (IBAction)doSomething:(id)sender
+- (IBAction)onClick:(id)sender
 {
     SonosMenuItem *tItem = (SonosMenuItem*)sender;
     
@@ -58,21 +59,13 @@ NSMenu *theMenu;
     
     
     for (NSMenuItem *item in theMenu.itemArray) {
-        item.action = @selector(doSomething:);
+        item.action = @selector(onClick:);
     }
     
     tItem = [theMenu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
     [tItem setKeyEquivalentModifierMask:NSCommandKeyMask];
-    
-    
-  //  NSStatusBar *statusBar = [NSStatusBar systemStatusBar];
-    //statusItem = [statusBar statusItemWithLength:NSSquareStatusItemLength];
-    
-    //[statusItem setImage:[NSImage imageNamed:@"status_item_icon@2x.png"]];
-    //[statusItem setToolTip:@"GEETOS™"];
-    //[statusItem setHighlightMode:YES];
-    //[statusItem setMenu:theMenu];
-    
+
+
     statusItem = [[NSStatusBar systemStatusBar]statusItemWithLength:NSSquareStatusItemLength];
     NSImage *statusImage = [NSImage imageNamed:@"status_item_icon"];
     [statusItem setImage:statusImage];
@@ -85,4 +78,20 @@ NSMenu *theMenu;
     
 }
 
+
+
+#pragma mark - NSMenuDelegate
+- (void)menuWillOpen:(NSMenu *)menu NS_AVAILABLE_MAC(10_5) {
+    NSString *path = @"Library/Application Support/Sonos/jffs/localsettings.txt";
+    NSString *docPath = [NSHomeDirectory() stringByAppendingPathComponent:path];
+    
+    NSString *contents = [NSString stringWithContentsOfFile:docPath encoding:NSUTF8StringEncoding error:nil];
+    for (SonosMenuItem *item in theMenu.itemArray) {
+        if ([contents rangeOfString:item.houseHoldID].location == NSNotFound) {
+            item.state = NSOffState;
+        } else {
+            item.state = NSOnState;
+        }
+    }
+}
 @end

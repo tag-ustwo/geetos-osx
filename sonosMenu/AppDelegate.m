@@ -99,7 +99,19 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
 
     statusItem.highlightMode = YES;
     statusItem.menu = theMenu;
+
+
+// Quit and Relaunch Sonos App but I need you to make it so it's onClick
+    
+    [NSApp activateIgnoringOtherApps:YES];
+    NSAppleScript *sonos = [[NSAppleScript alloc] initWithSource:@"tell application \"Sonos\" to quit \r delay 5 \r tell application \"Sonos\" to activate"];
+    
+    [sonos executeAndReturnError:nil];
+    
+    
+
 }
+
 
 
 

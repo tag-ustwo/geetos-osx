@@ -24,6 +24,7 @@
 		1F8F606D17EB1545002C03A7 /* status_item_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F606917EB1545002C03A7 /* status_item_icon.png */; };
 		1F8F606E17EB1545002C03A7 /* status_item_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F606A17EB1545002C03A7 /* status_item_icon@2x.png */; };
 		1F8F607217EB1C60002C03A7 /* GEETOS.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F607117EB1C60002C03A7 /* GEETOS.icns */; };
+		AAA43F7317EC4D7B00D37E3E /* restart-sonos.scpt in Resources */ = {isa = PBXBuildFile; fileRef = AAA43F7217EC4D7B00D37E3E /* restart-sonos.scpt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		1F8F606917EB1545002C03A7 /* status_item_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_item_icon.png; sourceTree = "<group>"; };
 		1F8F606A17EB1545002C03A7 /* status_item_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_item_icon@2x.png"; sourceTree = "<group>"; };
 		1F8F607117EB1C60002C03A7 /* GEETOS.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = GEETOS.icns; sourceTree = "<group>"; };
+		AAA43F7217EC4D7B00D37E3E /* restart-sonos.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "restart-sonos.scpt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				1F1BE0B417E9AEEA00901D47 /* Supporting Files */,
 				1F1BE0E517E9DEB400901D47 /* SonosMenuItem.h */,
 				1F1BE0E617E9DEB400901D47 /* SonosMenuItem.m */,
+				AAA43F7217EC4D7B00D37E3E /* restart-sonos.scpt */,
 			);
 			path = sonosMenu;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				1F8F606C17EB1545002C03A7 /* status_item_highlighted_icon@2x.png in Resources */,
 				1F8F606D17EB1545002C03A7 /* status_item_icon.png in Resources */,
 				1F8F606E17EB1545002C03A7 /* status_item_icon@2x.png in Resources */,
+				AAA43F7317EC4D7B00D37E3E /* restart-sonos.scpt in Resources */,
 				1F8F607217EB1C60002C03A7 /* GEETOS.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

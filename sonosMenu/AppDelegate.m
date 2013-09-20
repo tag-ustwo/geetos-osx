@@ -19,30 +19,30 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
 #define LOCAL_SETTINGS_PATH [NSHomeDirectory() stringByAppendingPathComponent:kSettingsPath];
 
 -(void) addAppAsLoginItem{
-	NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    NSString * appPath = [[NSBundle mainBundle] bundlePath];
     
-	// This will retrieve the path for the application
-	// For example, /Applications/test.app
-	CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:appPath];
+    // This will retrieve the path for the application
+    // For example, /Applications/test.app
+    CFURLRef url = (__bridge CFURLRef)[NSURL fileURLWithPath:appPath];
     
-	// Create a reference to the shared file list.
+    // Create a reference to the shared file list.
     // We are adding it to the current user only.
     // If we want to add it all users, use
     // kLSSharedFileListGlobalLoginItems instead of
     //kLSSharedFileListSessionLoginItems
-	LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL,
                                                             kLSSharedFileListSessionLoginItems, NULL);
-	if (loginItems) {
-		//Insert an item to the list.
-		LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
+    if (loginItems) {
+        //Insert an item to the list.
+        LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems,
                                                                      kLSSharedFileListItemLast, NULL, NULL,
                                                                      url, NULL, NULL);
-		if (item){
-			CFRelease(item);
+        if (item){
+            CFRelease(item);
         }
-	}
+    }
     
-	CFRelease(loginItems);
+    CFRelease(loginItems);
 }
 
 - (void)dealloc
@@ -60,9 +60,9 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     NSError *error = nil;
     
     NSString *docPath = LOCAL_SETTINGS_PATH;
-
+    
     [manager removeItemAtPath:docPath error:&error];
-
+    
     NSString *contents = [NSString stringWithFormat:@"HouseholdID: [%@]", tItem.houseHoldID];
     [contents writeToFile:docPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
@@ -70,11 +70,13 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     // Quit and Relaunch Sonos App
     
     [NSApp activateIgnoringOtherApps:YES];
-    NSAppleScript *sonos = [[NSAppleScript alloc] initWithSource:@"tell application \"Sonos\" to quit \r delay 3 \r tell application \"Sonos\" to activate"];
+    NSURL* scriptURL = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"restart-sonos" ofType:@"scpt"]];
+
+    NSAppleScript *sonos = [[NSAppleScript alloc] initWithContentsOfURL:scriptURL error:nil];
     
     [sonos executeAndReturnError:nil];
-
-
+    
+    
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -85,7 +87,7 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     theMenu = [[NSMenu alloc] initWithTitle:@""];
     theMenu.delegate = self;
     theMenu.autoenablesItems = NO;
-
+    
     // Add items
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"Playground" andHouseHoldID:@"Sonos_Oo0VFqMAPbF3umyHMLjremCNbe"]];
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"JFDI™" andHouseHoldID:@"Sonos_nCLMAzUVvYT0fNQXCrQSdyYQEs"]];
@@ -100,18 +102,14 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     
     NSMenuItem *tItem = [theMenu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
     [tItem setKeyEquivalentModifierMask:NSCommandKeyMask];
-
+    
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
-
+    
     statusItem.image = [NSImage imageNamed:@"status_item_icon"];
     statusItem.alternateImage = [NSImage imageNamed:@"status_item_highlighted_icon"];;
-
+    
     statusItem.highlightMode = YES;
     statusItem.menu = theMenu;
-
-    
-    
-
 }
 
 

@@ -420,6 +420,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sonosMenu/sonosMenu-Prefix.pch";
 				INFOPLIST_FILE = "sonosMenu/sonosMenu-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = GEETOS;
 				WRAPPER_EXTENSION = app;
 			};
@@ -432,6 +433,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "sonosMenu/sonosMenu-Prefix.pch";
 				INFOPLIST_FILE = "sonosMenu/sonosMenu-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = GEETOS;
 				WRAPPER_EXTENSION = app;
 			};

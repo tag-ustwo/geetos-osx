@@ -68,13 +68,16 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     
     
     // Quit and Relaunch Sonos App
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    [NSApp activateIgnoringOtherApps:YES];
-    NSURL* scriptURL = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"restart-sonos" ofType:@"scpt"]];
+    dispatch_async(queue, ^{
 
-    NSAppleScript *sonos = [[NSAppleScript alloc] initWithContentsOfURL:scriptURL error:nil];
-    
-    [sonos executeAndReturnError:nil];
+        NSURL* scriptURL = [[NSURL alloc] initFileURLWithPath:[[NSBundle mainBundle] pathForResource:@"restart-sonos" ofType:@"scpt"]];
+        
+        NSAppleScript *sonos = [[NSAppleScript alloc] initWithContentsOfURL:scriptURL error:nil];
+        
+        [sonos executeAndReturnError:nil];
+    });
     
     
 }

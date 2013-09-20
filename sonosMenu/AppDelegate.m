@@ -96,7 +96,7 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"JFDI™" andHouseHoldID:@"Sonos_nCLMAzUVvYT0fNQXCrQSdyYQEs"]];
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"The Penthouse" andHouseHoldID:@"Sonos_5WvYLO189Sai40ssNe5th4uxON"]];
     
-    for (NSMenuItem *item in theMenu.itemArray) {
+    for (SonosMenuItem *item in theMenu.itemArray) {
         item.action = @selector(onClick:);
     }
     
@@ -124,6 +124,9 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     
     NSString *contents = [NSString stringWithContentsOfFile:docPath encoding:NSUTF8StringEncoding error:nil];
     for (SonosMenuItem *item in theMenu.itemArray) {
+        if (![item isKindOfClass:[SonosMenuItem class]]) {
+            continue;
+        }
         if ([contents rangeOfString:item.houseHoldID].location == NSNotFound) {
             item.state = NSOffState;
         } else {

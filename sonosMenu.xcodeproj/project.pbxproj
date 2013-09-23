@@ -17,7 +17,6 @@
 		1F1BE0CD17E9AEEA00901D47 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F1BE0AD17E9AEEA00901D47 /* Cocoa.framework */; };
 		1F1BE0D517E9AEEA00901D47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BE0D317E9AEEA00901D47 /* InfoPlist.strings */; };
 		1F1BE0D817E9AEEA00901D47 /* sonosMenuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BE0D717E9AEEA00901D47 /* sonosMenuTests.m */; };
-		1F1BE0E217E9B15400901D47 /* sonos.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F1BE0E117E9B15400901D47 /* sonos.png */; };
 		1F1BE0E717E9DEB400901D47 /* SonosMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F1BE0E617E9DEB400901D47 /* SonosMenuItem.m */; };
 		1F8F606B17EB1545002C03A7 /* status_item_highlighted_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F606717EB1545002C03A7 /* status_item_highlighted_icon.png */; };
 		1F8F606C17EB1545002C03A7 /* status_item_highlighted_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F8F606817EB1545002C03A7 /* status_item_highlighted_icon@2x.png */; };
@@ -57,7 +56,6 @@
 		1F1BE0D417E9AEEA00901D47 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1F1BE0D617E9AEEA00901D47 /* sonosMenuTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sonosMenuTests.h; sourceTree = "<group>"; };
 		1F1BE0D717E9AEEA00901D47 /* sonosMenuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sonosMenuTests.m; sourceTree = "<group>"; };
-		1F1BE0E117E9B15400901D47 /* sonos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sonos.png; sourceTree = "<group>"; };
 		1F1BE0E517E9DEB400901D47 /* SonosMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SonosMenuItem.h; sourceTree = "<group>"; };
 		1F1BE0E617E9DEB400901D47 /* SonosMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SonosMenuItem.m; sourceTree = "<group>"; };
 		1F8F606717EB1545002C03A7 /* status_item_highlighted_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_item_highlighted_icon.png; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 				1F1BE0AC17E9AEEA00901D47 /* Frameworks */,
 				1F1BE0AB17E9AEEA00901D47 /* Products */,
 				1F8F607117EB1C60002C03A7 /* GEETOS.icns */,
-				1F1BE0E117E9B15400901D47 /* sonos.png */,
 				1F8F606717EB1545002C03A7 /* status_item_highlighted_icon.png */,
 				1F8F606817EB1545002C03A7 /* status_item_highlighted_icon@2x.png */,
 				1F8F606917EB1545002C03A7 /* status_item_icon.png */,
@@ -253,7 +250,6 @@
 				1F1BE0B817E9AEEA00901D47 /* InfoPlist.strings in Resources */,
 				1F1BE0BE17E9AEEA00901D47 /* Credits.rtf in Resources */,
 				1F1BE0C417E9AEEA00901D47 /* MainMenu.xib in Resources */,
-				1F1BE0E217E9B15400901D47 /* sonos.png in Resources */,
 				1F8F606B17EB1545002C03A7 /* status_item_highlighted_icon.png in Resources */,
 				1F8F606C17EB1545002C03A7 /* status_item_highlighted_icon@2x.png in Resources */,
 				1F8F606D17EB1545002C03A7 /* status_item_icon.png in Resources */,

@@ -51,19 +51,18 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
 }
 - (IBAction)onClick:(id)sender
 {
-    SonosMenuItem *tItem = (SonosMenuItem*)sender;
+    SonosMenuItem *item = (SonosMenuItem*)sender;
+    NSLog(@"We clicked %@", item.title);
     
-    NSLog(@"We clicked %@", tItem.title);
-    
+
     NSFileManager *manager = [NSFileManager defaultManager];
-    
     NSError *error = nil;
     
+    // Remove old config and create new one
     NSString *docPath = LOCAL_SETTINGS_PATH;
-    
     [manager removeItemAtPath:docPath error:&error];
     
-    NSString *contents = [NSString stringWithFormat:@"HouseholdID: [%@]", tItem.houseHoldID];
+    NSString *contents = [NSString stringWithFormat:@"HouseholdID: [%@]", item.houseHoldID];
     [contents writeToFile:docPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
     
@@ -86,12 +85,12 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
 {
     [self addAppAsLoginItem];
     
-    
-    theMenu = [[NSMenu alloc] initWithTitle:@""];
+    // Create status bar menu
+    theMenu = [[NSMenu alloc] init];
     theMenu.delegate = self;
     theMenu.autoenablesItems = NO;
     
-    // Add items
+    // Add sonos targets
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"Playground" andHouseHoldID:@"Sonos_Oo0VFqMAPbF3umyHMLjremCNbe"]];
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"JFDI™" andHouseHoldID:@"Sonos_nCLMAzUVvYT0fNQXCrQSdyYQEs"]];
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"The Penthouse" andHouseHoldID:@"Sonos_5WvYLO189Sai40ssNe5th4uxON"]];
@@ -99,13 +98,15 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     for (SonosMenuItem *item in theMenu.itemArray) {
         item.action = @selector(onClick:);
     }
-    
+
     // Add separator & quit item
     [theMenu addItem:[NSMenuItem separatorItem]];
     
-    NSMenuItem *tItem = [theMenu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
-    [tItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+    NSMenuItem *quitItem = [theMenu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
+    [quitItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+
     
+    // Create status bar item
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     
     statusItem.image = [NSImage imageNamed:@"status_item_icon"];
@@ -119,8 +120,10 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
 
 
 #pragma mark - NSMenuDelegate
+
 - (void)menuWillOpen:(NSMenu *)menu NS_AVAILABLE_MAC(10_5) {
     NSString *docPath = LOCAL_SETTINGS_PATH;
+    
     
     NSString *contents = [NSString stringWithContentsOfFile:docPath encoding:NSUTF8StringEncoding error:nil];
     for (SonosMenuItem *item in theMenu.itemArray) {

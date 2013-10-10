@@ -417,7 +417,7 @@
 				GCC_PREFIX_HEADER = "sonosMenu/sonosMenu-Prefix.pch";
 				INFOPLIST_FILE = "sonosMenu/sonosMenu-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				PRODUCT_NAME = GEETOS;
+				PRODUCT_NAME = "ustwo™ GEETOS™";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -430,7 +430,7 @@
 				GCC_PREFIX_HEADER = "sonosMenu/sonosMenu-Prefix.pch";
 				INFOPLIST_FILE = "sonosMenu/sonosMenu-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				PRODUCT_NAME = GEETOS;
+				PRODUCT_NAME = "ustwo™ GEETOS™";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

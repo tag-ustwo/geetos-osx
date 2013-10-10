@@ -91,7 +91,7 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     theMenu.autoenablesItems = NO;
     
     // Add sonos targets
-    [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"Playground" andHouseHoldID:@"Sonos_Oo0VFqMAPbF3umyHMLjremCNbe"]];
+    [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"Playground" andHouseHoldID:@"Sonos_mPp4BoAHL1fcYPsItHY73nYtuB"]];
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"JFDI™" andHouseHoldID:@"Sonos_H7owJmHyOV1yaG1WgWoG816mPw"]];
     [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"The Penthouse" andHouseHoldID:@"Sonos_5WvYLO189Sai40ssNe5th4uxON"]];
     

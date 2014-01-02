@@ -15,6 +15,7 @@ NSStatusItem *statusItem;
 NSMenu *theMenu;
 
 NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localsettings.txt";
+NSString* const kItems = @"items";
 
 #define LOCAL_SETTINGS_PATH [NSHomeDirectory() stringByAppendingPathComponent:kSettingsPath];
 
@@ -80,6 +81,39 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     
     
 }
+- (void) renderMenu {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSArray *array = [prefs objectForKey:kItems];
+
+    if (!array) {
+        NSLog(@"No menu items saved yet");
+        return;
+    }
+
+    // Clear menu
+    [theMenu removeAllItems];
+
+
+    // Create sonos items from the saved user defaults data
+    for (NSDictionary *dict in array) {
+        // TODO validate `dict` values
+        NSString *title = [dict objectForKey:@"title"];
+        NSString *householdID = [dict objectForKey:@"householdID"];
+
+        SonosMenuItem *item = [SonosMenuItem sonosMenuItemWithTitle:title andHouseHoldID:householdID];
+
+        item.action = @selector(onClick:);
+        [theMenu addItem: item];
+    }
+
+    // Add separator & quit item
+    [theMenu addItem:[NSMenuItem separatorItem]];
+
+    NSMenuItem *quitItem = [theMenu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
+    [quitItem setKeyEquivalentModifierMask:NSCommandKeyMask];
+
+
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -89,23 +123,7 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     theMenu = [[NSMenu alloc] init];
     theMenu.delegate = self;
     theMenu.autoenablesItems = NO;
-    
-    // Add sonos targets
-    [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"Playground" andHouseHoldID:@"Sonos_mPp4BoAHL1fcYPsItHY73nYtuB"]];
-    [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"JFDI™" andHouseHoldID:@"Sonos_H7owJmHyOV1yaG1WgWoG816mPw"]];
-    [theMenu addItem: [SonosMenuItem sonosMenuItemWithTitle:@"The Penthouse" andHouseHoldID:@"Sonos_5WvYLO189Sai40ssNe5th4uxON"]];
-    
-    for (SonosMenuItem *item in theMenu.itemArray) {
-        item.action = @selector(onClick:);
-    }
 
-    // Add separator & quit item
-    [theMenu addItem:[NSMenuItem separatorItem]];
-    
-    NSMenuItem *quitItem = [theMenu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
-    [quitItem setKeyEquivalentModifierMask:NSCommandKeyMask];
-
-    
     // Create status bar item
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSSquareStatusItemLength];
     
@@ -114,6 +132,14 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
     
     statusItem.highlightMode = YES;
     statusItem.menu = theMenu;
+
+    [self renderMenu];
+
+    // Fetch new sonos menu items
+    // To save new items, swap to branch `gh-pages` and change items.json
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://ustwo.github.io/geetos-osx/items.json"]];
+    [NSURLConnection connectionWithRequest:req delegate:self];
+
 }
 
 
@@ -137,4 +163,32 @@ NSString* const kSettingsPath = @"Library/Application Support/Sonos/jffs/localse
         }
     }
 }
+#pragma mark - NSURLConnectionDelegate
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    //NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    //NSLog(@"received data %@", jsonString);
+
+    NSError *error = nil;
+    NSArray *jsonArray = (NSArray *)[NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+
+    if (error || ![jsonArray isKindOfClass:[NSArray class]]) {
+        NSLog(@"Invalid JSON data fetched!");
+        return;
+    }
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    NSArray *savedItems = [prefs objectForKey:kItems];
+
+    if ([savedItems isEqual:jsonArray]) {
+        NSLog(@"No changes.");
+        return;
+    }
+    // saving items
+    [prefs setObject:jsonArray forKey:kItems];
+    [prefs synchronize];
+
+
+    [self renderMenu];
+}
+
 @end

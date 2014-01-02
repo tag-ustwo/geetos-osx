@@ -14,7 +14,7 @@ OS X status bar application used to switch between ustwo™ London's Sonos serve
 
 ### Usage
 
-Clone, open in XCode. To save new household IDs, swap to branch `gh-pages` and change `items.json`
+Clone, open in XCode. To save new household IDs, change `items.json`, commit and push it.
 
 Deploy at `afp://10.1.0.192/ustwo/Studio/ustwo™_Apps/ustwo™ GEETOS™`
 

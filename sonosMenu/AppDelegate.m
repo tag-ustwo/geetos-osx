@@ -137,7 +137,7 @@ NSString* const kItems = @"items";
 
     // Fetch new sonos menu items
     // To save new items, swap to branch `gh-pages` and change items.json
-    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://ustwo.github.io/geetos-osx/items.json"]];
+    NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://raw.github.com/ustwo/geetos-osx/master/items.json"]];
     [NSURLConnection connectionWithRequest:req delegate:self];
 
 }

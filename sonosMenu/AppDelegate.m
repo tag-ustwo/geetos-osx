@@ -156,7 +156,7 @@ NSString* const kItems = @"items";
         if (![item isKindOfClass:[SonosMenuItem class]]) {
             continue;
         }
-        if ([contents rangeOfString:item.houseHoldID].location == NSNotFound) {
+        if (!contents || !item.houseHoldID || [contents rangeOfString:item.houseHoldID].location == NSNotFound) {
             item.state = NSOffState;
         } else {
             item.state = NSOnState;

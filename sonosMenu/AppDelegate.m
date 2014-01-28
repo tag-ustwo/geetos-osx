@@ -134,12 +134,13 @@ NSString* const kItems = @"items";
     statusItem.menu = theMenu;
 
     [self renderMenu];
+    [self fetchNewSonosItems];
 
-    // Fetch new sonos menu items
-    // To save new items, swap to branch `gh-pages` and change items.json
+}
+
+- (void)fetchNewSonosItems {
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://raw.github.com/ustwo/geetos-osx/master/items.json"]];
     [NSURLConnection connectionWithRequest:req delegate:self];
-
 }
 
 

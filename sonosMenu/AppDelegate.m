@@ -139,11 +139,17 @@ NSString* const kItems = @"items";
 }
 
 - (void)fetchNewSonosItems {
+    NSLog(@"Fetching new Sonos items...");
+
     NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://raw.github.com/ustwo/geetos-osx/master/items.json"]];
     [NSURLConnection connectionWithRequest:req delegate:self];
 }
 
+- (void)retryRequestLater {
+    NSLog(@".. going to retry request in a bit.");
 
+    [NSTimer timerWithTimeInterval:30 target:self selector:@selector(fetchNewSonosItems) userInfo:nil repeats:NO];
+}
 
 
 #pragma mark - NSMenuDelegate
@@ -165,6 +171,11 @@ NSString* const kItems = @"items";
     }
 }
 #pragma mark - NSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    NSLog(@"Request did fail :(");
+    [self retryRequestLater];
+}
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     //NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     //NSLog(@"received data %@", jsonString);
@@ -174,6 +185,7 @@ NSString* const kItems = @"items";
 
     if (error || ![jsonArray isKindOfClass:[NSArray class]]) {
         NSLog(@"Invalid JSON data fetched!");
+        [self retryRequestLater];
         return;
     }
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
